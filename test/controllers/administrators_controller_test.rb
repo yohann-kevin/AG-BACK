@@ -10,13 +10,13 @@ class AdministratorsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create administrator" do
-    assert_difference('Administrator.count') do
-      post administrators_url, params: { administrator: { email: @administrator.email, name: @administrator.name, password: @administrator.password } }, as: :json
-    end
+  # test "should create administrator" do
+  #   assert_difference('Administrator.count') do
+  #     post administrators_url, params: { administrator: { email: @administrator.email, name: @administrator.name, password: @administrator.password } }, as: :json
+  #   end
 
-    assert_response 201
-  end
+  #   assert_response 201
+  # end
 
   test "should show administrator" do
     get administrator_url(@administrator), as: :json
