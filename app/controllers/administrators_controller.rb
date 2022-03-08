@@ -15,17 +15,6 @@ class AdministratorsController < ApplicationController
     render json: @administrator
   end
 
-  # POST /administrators
-  # def create
-  #   @administrator = Administrator.new(administrator_params)
-
-  #   if @administrator.save
-  #     render json: @administrator, status: :created, location: @administrator
-  #   else
-  #     render json: @administrator.errors, status: :unprocessable_entity
-  #   end
-  # end
-
   def create
     admin = {
       email: administrator_params["email"],
@@ -38,6 +27,20 @@ class AdministratorsController < ApplicationController
       render json: @administrator, status: :created, location: @administrator
     else
       render json: @administrator.errors, status: :unprocessable_entity
+    end
+  end
+
+  def login
+    user_info = JSON.parse(request.body.read)
+    administrator = Administrator.find_admin_by_login(user_info["login"])
+    return undefined_user if administrator.nil?
+    password = BCrypt::Password.new(administrator.password)
+    if password == user_info["password"]
+      payload = { admin_id: administrator.id, is_admin: true }
+      token = JWT.encode(payload, nil, "HS256")
+      render json: { token: token, admin_data: administrator }
+    else
+      return undefined_user
     end
   end
 
@@ -65,5 +68,10 @@ class AdministratorsController < ApplicationController
     def administrator_params
       # params.require(:administrator).permit(:email, :name, :password)
       params.permit(:email, :name, :password)
+    end
+
+    # TODO: manage response if user nis undefined
+    def undefined_user
+      render json: { message: "undefined users !" }
     end
 end
