@@ -8,14 +8,14 @@ Documentation:
 
 # temporary
 Layout/LineLength:
-  Max: 150
+  Max: 120
 
 Style/FrozenStringLiteralComment:
   Enabled: false
 
 # temporary
 Metrics/MethodLength:
-  Max: 30
+  Max: 20
 
 Metrics/AbcSize:
   Enabled: false
