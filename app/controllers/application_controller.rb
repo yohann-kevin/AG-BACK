@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
   around_action :manage_error
   before_action :authorized
-  
+
   def auth_header
     request.headers["Authorization"]
   end
@@ -17,7 +17,7 @@ class ApplicationController < ActionController::API
     end
   end
 
-  def logged_in_admin 
+  def logged_in_admin
     return unless decoded_token
 
     admin_id = decoded_token[0]["admin_id"]

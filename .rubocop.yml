@@ -1,0 +1,39 @@
+require: rubocop-rails
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Documentation:
+  Enabled: false
+
+# temporary
+Layout/LineLength:
+  Max: 150
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# temporary
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/AbcSize:
+  Enabled: false
+
+Rails/FilePath:
+  Enabled: false
+
+Metrics/ClassLength:
+  Max: 100
+
+inherit_mode:
+  merge:
+    - Exclude
+
+AllCops:
+  Exclude:
+    - spec/**/*
+    - test/**/*
+    - db/schema.rb
+    - db/migrate/*
+    - bin/*

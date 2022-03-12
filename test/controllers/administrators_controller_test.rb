@@ -24,12 +24,13 @@ class AdministratorsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update administrator" do
-    patch administrator_url(@administrator), params: { administrator: { email: @administrator.email, name: @administrator.name, password: @administrator.password } }, as: :json
+    patch administrator_url(@administrator),
+          params: { administrator: { email: @administrator.email, name: @administrator.name, password: @administrator.password } }, as: :json
     assert_response 200
   end
 
   test "should destroy administrator" do
-    assert_difference('Administrator.count', -1) do
+    assert_difference("Administrator.count", -1) do
       delete administrator_url(@administrator), as: :json
     end
 

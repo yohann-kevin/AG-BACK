@@ -4,22 +4,16 @@ class Administrator < ApplicationRecord
   validates :password, presence: true
 
   def self.find_admin_by_login(login)
-    if find_admin_by_email(login) || find_admin_by_name(login)
-      return @administrator
-    else
-      return nil
-    end
+    @administrator if find_admin_by_email(login) || find_admin_by_name(login)
   end
-
-  private
 
   def self.find_admin_by_name(login)
     @administrator = Administrator.find_by(name: login)
-    return @administrator.nil? ? false : true
+    @administrator.nil? ? false : true
   end
 
   def self.find_admin_by_email(login)
     @administrator = Administrator.find_by(email: login)
-    return @administrator.nil? ? false : true
+    @administrator.nil? ? false : true
   end
 end
