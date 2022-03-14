@@ -3,7 +3,7 @@ class ModelsController < ApplicationController
   skip_before_action :authorized, only: %i[index show create update destroy]
 
   # GET /models
-  api :GET, 'models', "Show all models"
+  api :GET, "models", "Show all models"
   def index
     @models = Model.all
 
@@ -11,8 +11,8 @@ class ModelsController < ApplicationController
   end
 
   # GET /models/1
-  api :GET, 'models/:id', "Find model by id"
-  param :id, :number, desc: 'id for find models'
+  api :GET, "models/:id", "Find model by id"
+  param :id, :number, desc: "id for find models"
   def show
     render json: @model
   end

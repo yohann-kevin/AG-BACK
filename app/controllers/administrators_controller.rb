@@ -13,14 +13,14 @@ class AdministratorsController < ApplicationController
   end
 
   # GET /administrators/1
-  api :GET, 'administrators/:id', "Find administrator by id"
-  param :id, :number, desc: 'id for find administrators'
+  api :GET, "administrators/:id", "Find administrator by id"
+  param :id, :number, desc: "id for find administrators"
   def show
     render json: @administrator
   end
 
   # POST /administrators
-  api :POST, 'administrators', "Create new administrator"
+  api :POST, "administrators", "Create new administrator"
   def create
     admin = {
       email: administrator_params["email"],
@@ -38,7 +38,7 @@ class AdministratorsController < ApplicationController
   end
 
   # POST /admin/auth
-  api :POST, 'admin/auth', "Login administrator"
+  api :POST, "admin/auth", "Login administrator"
   def login
     user_info = JSON.parse(request.body.read)
     administrator = Administrator.find_admin_by_login(user_info["login"])
@@ -55,7 +55,7 @@ class AdministratorsController < ApplicationController
   end
 
   # PATCH/PUT /administrators/1
-  api :PUT, 'administrators/:id', "Update administrator information"
+  api :PUT, "administrators/:id", "Update administrator information"
   param :id, :number, desc: "Id for find administrator"
   def update
     if @administrator.update(administrator_params)
@@ -66,7 +66,7 @@ class AdministratorsController < ApplicationController
   end
 
   # DELETE /administrators/1
-  api :DELETE, 'administrators/:id', "Delete administrator"
+  api :DELETE, "administrators/:id", "Delete administrator"
   param :id, :number, desc: "Id for find administrator"
   def destroy
     @administrator.destroy
