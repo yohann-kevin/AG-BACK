@@ -5,6 +5,7 @@ class AdministratorsController < ApplicationController
   skip_before_action :authorized, only: %i[create login]
 
   # GET /administrators
+  api :GET, "administrators", "Find all administrators"
   def index
     @administrators = Administrator.all
 
@@ -12,10 +13,14 @@ class AdministratorsController < ApplicationController
   end
 
   # GET /administrators/1
+  api :GET, 'administrators/:id', "Find administrator by id"
+  param :id, :number, desc: 'id for find administrators'
   def show
     render json: @administrator
   end
 
+  # POST /administrators
+  api :POST, 'administrators', "Create new administrator"
   def create
     admin = {
       email: administrator_params["email"],
@@ -32,6 +37,8 @@ class AdministratorsController < ApplicationController
     end
   end
 
+  # POST /admin/auth
+  api :POST, 'admin/auth', "Login administrator"
   def login
     user_info = JSON.parse(request.body.read)
     administrator = Administrator.find_admin_by_login(user_info["login"])
@@ -48,6 +55,8 @@ class AdministratorsController < ApplicationController
   end
 
   # PATCH/PUT /administrators/1
+  api :PUT, 'administrators/:id', "Update administrator information"
+  param :id, :number, desc: "Id for find administrator"
   def update
     if @administrator.update(administrator_params)
       render json: @administrator
@@ -57,6 +66,8 @@ class AdministratorsController < ApplicationController
   end
 
   # DELETE /administrators/1
+  api :DELETE, 'administrators/:id', "Delete administrator"
+  param :id, :number, desc: "Id for find administrator"
   def destroy
     @administrator.destroy
   end
@@ -74,7 +85,7 @@ class AdministratorsController < ApplicationController
     params.permit(:email, :name, :password)
   end
 
-  # TODO: manage response if user nis undefined
+  # TODO: manage response if user is undefined
   def undefined_user
     render json: { message: "undefined users !" }
   end
