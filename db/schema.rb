@@ -10,12 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_13_164056) do
+ActiveRecord::Schema.define(version: 2022_03_20_171209) do
 
   create_table "administrators", force: :cascade do |t|
     t.string "email"
     t.string "name"
     t.string "password"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "model_pictures", force: :cascade do |t|
+    t.string "model_uuid"
+    t.string "picture_path"
+    t.boolean "main_picture"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -1,0 +1,2 @@
+class ModelPicture < ApplicationRecord
+end
