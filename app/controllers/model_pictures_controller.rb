@@ -1,5 +1,5 @@
 class ModelPicturesController < ApplicationController
-  before_action :set_model_picture, only: [:show, :update, :destroy]
+  before_action :set_model_picture, only: %i[show update destroy]
 
   # GET /model_pictures
   def index
@@ -39,13 +39,14 @@ class ModelPicturesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_model_picture
-      @model_picture = ModelPicture.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def model_picture_params
-      params.require(:model_picture).permit(:model_uuid, :picture_path, :main_picture)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_model_picture
+    @model_picture = ModelPicture.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def model_picture_params
+    params.require(:model_picture).permit(:model_uuid, :picture_path, :main_picture)
+  end
 end
