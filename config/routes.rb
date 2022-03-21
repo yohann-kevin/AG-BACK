@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   # endpoint for model
   get "/get/model/:id" => "mannequin#all_model_data"
+  post "/create/model" => "mannequin#add_model_data"
 
   get "/" => "index#index"
 end
