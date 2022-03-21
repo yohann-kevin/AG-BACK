@@ -12,6 +12,7 @@ class MannequinController < ApplicationController
     model = Model.register_model(request_data["model"], model_id)
     model_info = ModelInfo.register_model_info(request_data["model_info"], model_id)
     model_network = ModelNetwork.register_model_network(request_data["model_network"], model_id)
+    # TODO: manage model image
 
     if model && model_info && model_network
       render json: find_all_model_data(model_id), status: :created
