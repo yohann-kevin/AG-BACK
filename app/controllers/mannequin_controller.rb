@@ -23,6 +23,7 @@ class MannequinController < ApplicationController
 
   private
 
+  # TODO: replace ActiveRecord method on model
   def find_all_model_data(id)
     {
       model: Model.find(id),
