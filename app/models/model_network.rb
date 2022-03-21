@@ -1,0 +1,2 @@
+class ModelNetwork < ApplicationRecord
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_21_205248) do
+ActiveRecord::Schema.define(version: 2022_03_21_213045) do
 
   create_table "administrators", force: :cascade do |t|
     t.string "email"
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(version: 2022_03_21_205248) do
     t.string "hair_color"
     t.string "astrological"
     t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "model_networks", force: :cascade do |t|
+    t.string "model_uuid"
+    t.string "instagram"
+    t.string "facebook"
+    t.string "snapchat"
+    t.string "tiktok"
+    t.string "twitter"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

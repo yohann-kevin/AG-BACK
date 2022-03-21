@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :model_networks
   resources :model_infos
   resources :model_pictures
   apipie
