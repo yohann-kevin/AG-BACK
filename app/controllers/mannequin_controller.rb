@@ -1,5 +1,19 @@
 class MannequinController < ApplicationController
-  skip_before_action :authorized, only: %i[all_model_data add_model_data]
+  skip_before_action :authorized, only: %i[home_model_data all_model_data add_model_data]
+
+  def home_model_data
+    model_data = Model.select(:id, :firstname)
+    res = []
+    model_data.each do |model|
+      res << {
+        model: model,
+        model_info: ModelInfo.select(:id, :description).find_by(model_uuid: model.id),
+        model_picture: ModelPicture.select(:id, :picture_path).find_by(model_uuid: model.id, main_picture: true)
+      }
+    end
+
+    render json: res
+  end
 
   def all_model_data
     res = find_all_model_data(params[:id])
