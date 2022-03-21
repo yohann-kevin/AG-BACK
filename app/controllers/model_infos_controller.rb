@@ -1,5 +1,5 @@
 class ModelInfosController < ApplicationController
-  before_action :set_model_info, only: [:show, :update, :destroy]
+  before_action :set_model_info, only: %i[show update destroy]
 
   # GET /model_infos
   def index
@@ -39,13 +39,15 @@ class ModelInfosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_model_info
-      @model_info = ModelInfo.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def model_info_params
-      params.require(:model_info).permit(:model_uuid, :size, :weight, :chest, :waist, :hips, :shoe_size, :color, :hair_color, :astrological, :description)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_model_info
+    @model_info = ModelInfo.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def model_info_params
+    params.require(:model_info).permit(:model_uuid, :size, :weight, :chest, :waist, :hips, :shoe_size, :color,
+                                       :hair_color, :astrological, :description)
+  end
 end

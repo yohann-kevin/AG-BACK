@@ -1,5 +1,5 @@
 class ModelNetworksController < ApplicationController
-  before_action :set_model_network, only: [:show, :update, :destroy]
+  before_action :set_model_network, only: %i[show update destroy]
 
   # GET /model_networks
   def index
@@ -39,13 +39,14 @@ class ModelNetworksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_model_network
-      @model_network = ModelNetwork.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def model_network_params
-      params.require(:model_network).permit(:model_uuid, :instagram, :facebook, :snapchat, :tiktok, :twitter)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_model_network
+    @model_network = ModelNetwork.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def model_network_params
+    params.require(:model_network).permit(:model_uuid, :instagram, :facebook, :snapchat, :tiktok, :twitter)
+  end
 end
