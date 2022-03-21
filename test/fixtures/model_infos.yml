@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  model_uuid: MyString
+  size: 1
+  weight: 1
+  chest: 1
+  waist: 1
+  hips: 1
+  shoe_size: 1
+  color: MyString
+  hair_color: MyString
+  astrological: MyString
+  description: MyString
+
+two:
+  model_uuid: MyString
+  size: 1
+  weight: 1
+  chest: 1
+  waist: 1
+  hips: 1
+  shoe_size: 1
+  color: MyString
+  hair_color: MyString
+  astrological: MyString
+  description: MyString

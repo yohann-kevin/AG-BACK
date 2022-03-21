@@ -10,12 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_20_171209) do
+ActiveRecord::Schema.define(version: 2022_03_21_205248) do
 
   create_table "administrators", force: :cascade do |t|
     t.string "email"
     t.string "name"
     t.string "password"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "model_infos", force: :cascade do |t|
+    t.string "model_uuid"
+    t.integer "size"
+    t.integer "weight"
+    t.integer "chest"
+    t.integer "waist"
+    t.integer "hips"
+    t.integer "shoe_size"
+    t.string "color"
+    t.string "hair_color"
+    t.string "astrological"
+    t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
