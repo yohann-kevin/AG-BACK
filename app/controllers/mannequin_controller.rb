@@ -41,7 +41,7 @@ class MannequinController < ApplicationController
   def find_all_model_data(id)
     {
       model: Model.find(id),
-      model_infos: ModelInfo.select(:id, :size, :weight, :chest, :waist, :hips, :shoe_size, :color, :hair_color,
+      model_infos: ModelInfo.select(:id, :size, :weight, :chest, :waist, :hips, :shoe_size, :color, :hair_color, :eyes,
                                     :astrological, :description).find_by(model_uuid: id),
       model_networks: ModelNetwork.select(:id, :instagram, :facebook, :snapchat, :tiktok,
                                           :twitter).find_by(model_uuid: id),
