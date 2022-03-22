@@ -30,13 +30,14 @@ gem "bootsnap", ">= 1.4.4", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem "rack-cors"
 
+# Generate api documentation
+gem "apipie-rails"
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem "sqlite3", "~> 1.4"
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
-  # Generate api documentation
-  gem "apipie-rails"
 end
 
 group :development do
