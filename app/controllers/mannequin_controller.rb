@@ -9,7 +9,7 @@ class MannequinController < ApplicationController
     model_data.each do |model|
       res << {
         model: model,
-        model_info: ModelInfo.select(:id, :description).find_by(model_uuid: model.id),
+        model_info: ModelInfo.select(:id, :sexe, :description).find_by(model_uuid: model.id),
         model_picture: ModelPicture.select(:id, :picture_path).find_by(model_uuid: model.id, main_picture: true)
       }
     end
