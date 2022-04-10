@@ -1,7 +1,7 @@
 require "cloudinary"
 
 class MannequinController < ApplicationController
-  skip_before_action :authorized, only: %i[home_model_data all_model_data add_model_data]
+  skip_before_action :authorized, only: %i[home_model_data all_model_data add_model_data update_model]
 
   def home_model_data
     model_data = Model.select(:id, :firstname)
@@ -36,8 +36,23 @@ class MannequinController < ApplicationController
     if model && model_info && model_network
       render json: find_all_model_data(model_id), status: :created
     else
-      render json: @model_network.errors, status: :unprocessable_entity
+      render json: model_network.errors, status: :unprocessable_entity
     end
+  end
+
+  def update_model
+    request_data = JSON.parse(request.body.read)
+    model_id = request_data["model_id"]
+    model = Model.update_model_data(request_data["model"], model_id)
+    model_infos = ModelInfo.update_model_info(request_data["model_info"], model_id)
+    model_networks = ModelNetwork.update_model_network(request_data["model_network"], model_id)
+
+    if model && model_infos && model_networks
+      render json: { message: "plop" }, status: :created
+    else
+      render render json: model.errors, status: :unprocessable_entity 
+    end
+    
   end
 
   private
