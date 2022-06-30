@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get "/get/model/:id" => "mannequin#all_model_data"
   post "/create/model" => "mannequin#add_model_data"
   post "/modify/model" => "mannequin#update_model"
+  delete "/delete/model" => "mannequin#delete_model"
 
   get "/" => "index#index"
 end
