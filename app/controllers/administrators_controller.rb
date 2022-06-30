@@ -85,8 +85,7 @@ class AdministratorsController < ApplicationController
     params.permit(:email, :name, :password)
   end
 
-  # TODO: manage response if user is undefined
   def undefined_user
-    render json: { message: "undefined users !" }
+    render status: :unauthorized
   end
 end
