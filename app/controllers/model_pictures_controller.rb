@@ -1,5 +1,6 @@
 class ModelPicturesController < ApplicationController
   before_action :set_model_picture, only: %i[show update destroy]
+  skip_before_action :authorized, only: %i[destroy]
 
   # GET /model_pictures
   def index
