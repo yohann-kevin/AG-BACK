@@ -1,6 +1,6 @@
 class ModelPicturesController < ApplicationController
-  before_action :set_model_picture, only: %i[show update destroy]
-  skip_before_action :authorized, only: %i[destroy]
+  before_action :set_model_picture, only: %i[show update destroy modify_main_picture]
+  skip_before_action :authorized, only: %i[destroy modify_main_picture]
 
   # GET /model_pictures
   def index
@@ -37,6 +37,15 @@ class ModelPicturesController < ApplicationController
   # DELETE /model_pictures/1
   def destroy
     @model_picture.destroy
+    model_pictures = ModelPicture.where(model_uuid: @model_picture.model_uuid)
+    render json: model_pictures
+  end
+
+  def modify_main_picture
+    model_id = params[:model_uuid]
+    ModelPicture.change_main_picture(@model_picture, model_id)
+    model_pictures = ModelPicture.where(model_uuid: model_id)
+    render json: model_pictures
   end
 
   private
