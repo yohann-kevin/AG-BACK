@@ -1,7 +1,7 @@
 require "cloudinary"
 
 class MannequinController < ApplicationController
-  skip_before_action :authorized, only: %i[home_model_data all_model_data add_model_data update_model]
+  skip_before_action :authorized, only: %i[home_model_data all_model_data add_model_data update_model delete_model]
 
   def home_model_data
     model_data = Model.select(:id, :sexe, :firstname)
@@ -52,7 +52,20 @@ class MannequinController < ApplicationController
     else
       render render json: model.errors, status: :unprocessable_entity 
     end
-    
+  end
+
+  def delete_model
+    model_id = params[:id]
+    begin
+      Model.delete_by(id: model_id)
+      ModelInfo.delete_by(model_uuid: model_id)
+      ModelNetwork.delete_by(model_uuid: model_id)
+      ModelPicture.delete_by(model_uuid: model_id)
+      render json: { model_deleted: true }
+    rescue => err
+      render json: { model_deleted: false }
+      raise err
+    end
   end
 
   private
