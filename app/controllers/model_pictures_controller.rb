@@ -1,5 +1,8 @@
+require "cloudinary"
+
 class ModelPicturesController < ApplicationController
-  before_action :set_model_picture, only: %i[show update destroy]
+  before_action :set_model_picture, only: %i[show update destroy modify_main_picture]
+  skip_before_action :authorized, only: %i[destroy modify_main_picture create]
 
   # GET /model_pictures
   def index
@@ -15,13 +18,16 @@ class ModelPicturesController < ApplicationController
 
   # POST /model_pictures
   def create
-    @model_picture = ModelPicture.new(model_picture_params)
+    request_data = JSON.parse(request.body.read)
+    picture_data = request_data['picture_data']
+    model_id = request_data['model_id']
 
-    if @model_picture.save
-      render json: @model_picture, status: :created, location: @model_picture
-    else
-      render json: @model_picture.errors, status: :unprocessable_entity
-    end
+    picture_url = upload_model_image(picture_data)[:image_path]
+    register_new_picture(picture_url, model_id)
+
+    all_model_picture = ModelPicture.where(model_uuid: model_id)
+
+    render json: all_model_picture, status: :created
   end
 
   # PATCH/PUT /model_pictures/1
@@ -36,6 +42,15 @@ class ModelPicturesController < ApplicationController
   # DELETE /model_pictures/1
   def destroy
     @model_picture.destroy
+    model_pictures = ModelPicture.where(model_uuid: @model_picture.model_uuid)
+    render json: model_pictures
+  end
+
+  def modify_main_picture
+    model_id = params[:model_uuid]
+    ModelPicture.change_main_picture(@model_picture, model_id)
+    model_pictures = ModelPicture.where(model_uuid: model_id)
+    render json: model_pictures
   end
 
   private
@@ -43,6 +58,15 @@ class ModelPicturesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_model_picture
     @model_picture = ModelPicture.find(params[:id])
+  end
+
+  def register_new_picture(picture_path, model_id)
+    ModelPicture.register_picture(picture_path, model_id, false)
+  end
+
+  def upload_model_image(image_data)
+    res = Cloudinary::Uploader.upload(image_data)
+    { image_path: res["secure_url"] }
   end
 
   # Only allow a list of trusted parameters through.
