@@ -2,7 +2,6 @@ require "cloudinary"
 
 class ModelPicturesController < ApplicationController
   before_action :set_model_picture, only: %i[show update destroy modify_main_picture]
-  skip_before_action :authorized, only: %i[destroy modify_main_picture create]
 
   # GET /model_pictures
   def index

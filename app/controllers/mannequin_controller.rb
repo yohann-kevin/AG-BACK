@@ -1,7 +1,7 @@
 require "cloudinary"
 
 class MannequinController < ApplicationController
-  skip_before_action :authorized, only: %i[home_model_data all_model_data add_model_data update_model delete_model]
+  skip_before_action :authorized, only: %i[home_model_data all_model_data]
 
   def home_model_data
     model_data = Model.select(:id, :sexe, :firstname)
