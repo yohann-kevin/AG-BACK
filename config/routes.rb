@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   resources :model_networks
   resources :model_infos
+
   resources :model_pictures
+  post "/model_pictures/modify/main_picture" => "model_pictures#modify_main_picture"
+
   apipie
   resources :models
   resources :administrators
