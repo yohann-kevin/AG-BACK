@@ -50,7 +50,7 @@ class MannequinController < ApplicationController
     if model && model_infos && model_networks
       render json: { message: "plop" }, status: :created
     else
-      render render json: model.errors, status: :unprocessable_entity 
+      render render json: model.errors, status: :unprocessable_entity
     end
   end
 
