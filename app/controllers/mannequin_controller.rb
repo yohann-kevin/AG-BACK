@@ -30,7 +30,8 @@ class MannequinController < ApplicationController
     model_network = ModelNetwork.register_model_network(request_data["model_network"], model_id)
     main_picture_data = request_data["main_picture"][0]
     main_picture_cloudinary_data = CloudinaryService.new().upload_model_image(main_picture_data)
-    register_main_picture(main_picture_cloudinary_data[:image_path], model_id, main_picture_cloudinary_data[:cloudinary_id])
+    register_main_picture(main_picture_cloudinary_data[:image_path], model_id,
+                          main_picture_cloudinary_data[:cloudinary_id])
     register_model_picture(request_data["all_pictures"], model_id)
 
     if model && model_info && model_network
