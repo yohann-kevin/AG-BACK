@@ -75,6 +75,8 @@ GEM
       rest-client (>= 2.0.0)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
+    discordrb-webhooks (3.4.2)
+      rest-client (>= 2.0.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.10.0)
@@ -210,6 +212,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   cloudinary
+  discordrb-webhooks
   jwt
   listen (~> 3.3)
   mysql2 (~> 0.5.2)

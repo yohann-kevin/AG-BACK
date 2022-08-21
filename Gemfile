@@ -23,6 +23,8 @@ gem "rubocop-rails", require: false
 gem "rubocop-rspec", require: false
 # cloudinary for save picture
 gem "cloudinary"
+# dirscord bot
+gem "discordrb-webhooks"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
