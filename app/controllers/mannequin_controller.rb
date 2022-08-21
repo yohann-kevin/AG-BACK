@@ -29,7 +29,7 @@ class MannequinController < ApplicationController
     model_info = ModelInfo.register_model_info(request_data["model_info"], model_id)
     model_network = ModelNetwork.register_model_network(request_data["model_network"], model_id)
     main_picture_data = request_data["main_picture"][0]
-    main_picture_cloudinary_data = CloudinaryService.new().upload_model_image(main_picture_data)
+    main_picture_cloudinary_data = CloudinaryService.new.upload_model_image(main_picture_data)
     register_main_picture(main_picture_cloudinary_data[:image_path], model_id,
                           main_picture_cloudinary_data[:cloudinary_id])
     register_model_picture(request_data["all_pictures"], model_id)
@@ -63,9 +63,9 @@ class MannequinController < ApplicationController
       ModelNetwork.delete_by(model_uuid: model_id)
       ModelPicture.delete_by(model_uuid: model_id)
       render json: { model_deleted: true }
-    rescue => err
+    rescue StandardError => e
       render json: { model_deleted: false }
-      raise err
+      raise e
     end
   end
 
@@ -89,7 +89,7 @@ class MannequinController < ApplicationController
 
   def register_model_picture(images_data, model_id)
     images_data.each do |image|
-      picture_data = CloudinaryService.new().upload_model_image(image)
+      picture_data = CloudinaryService.new.upload_model_image(image)
       ModelPicture.register_picture(picture_data[:image_path], model_id, false, picture_data[:cloudinary_id])
     end
   end

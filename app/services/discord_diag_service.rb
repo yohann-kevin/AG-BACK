@@ -7,8 +7,8 @@ class DiscordDiagService
     @is_error = is_error
     @entities = entities
     @emoji = {
-      error: '❌',
-      success: '✅',
+      error: "❌",
+      success: "✅"
     }
   end
 
@@ -20,9 +20,8 @@ class DiscordDiagService
       builder.add_embed do |embed|
         embed.title = manage_message_title
         embed.description = "#{@message} \n \n"
-        @entities.each do
-          |entity|
-          embed.description += "#{entity.attributes.to_s} \n \n"
+        @entities.each do |entity|
+          embed.description += "#{entity.attributes} \n \n"
         end
         embed.timestamp = Time.zone.now
       end

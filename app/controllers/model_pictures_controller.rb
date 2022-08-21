@@ -18,9 +18,9 @@ class ModelPicturesController < ApplicationController
   # POST /model_pictures
   def create
     request_data = JSON.parse(request.body.read)
-    picture_data = request_data['picture_data']
-    model_id = request_data['model_id']
-    picture_data = CloudinaryService.new().upload_model_image(picture_data)
+    picture_data = request_data["picture_data"]
+    model_id = request_data["model_id"]
+    picture_data = CloudinaryService.new.upload_model_image(picture_data)
     register_new_picture(picture_data[:image_path], model_id, picture_data[:cloudinary_id])
     all_model_picture = ModelPicture.where(model_uuid: model_id)
 
@@ -39,7 +39,7 @@ class ModelPicturesController < ApplicationController
   # DELETE /model_pictures/1
   def destroy
     @model_picture.destroy
-    CloudinaryService.new().destroy_model_image(@model_pictures.public_id)
+    CloudinaryService.new.destroy_model_image(@model_pictures.public_id)
     model_pictures = ModelPicture.where(model_uuid: @model_picture.model_uuid)
     render json: model_pictures
   end
