@@ -20,10 +20,8 @@ class ModelPicturesController < ApplicationController
     request_data = JSON.parse(request.body.read)
     picture_data = request_data['picture_data']
     model_id = request_data['model_id']
-
-    picture_url = upload_model_image(picture_data)[:image_path]
-    register_new_picture(picture_url, model_id)
-
+    picture_data = CloudinaryService.new().upload_model_image(picture_data)
+    register_new_picture(picture_data[:image_path], model_id, picture_data[:cloudinary_id])
     all_model_picture = ModelPicture.where(model_uuid: model_id)
 
     render json: all_model_picture, status: :created
@@ -41,6 +39,7 @@ class ModelPicturesController < ApplicationController
   # DELETE /model_pictures/1
   def destroy
     @model_picture.destroy
+    CloudinaryService.new().destroy_model_image(@model_pictures.public_id)
     model_pictures = ModelPicture.where(model_uuid: @model_picture.model_uuid)
     render json: model_pictures
   end
@@ -59,13 +58,8 @@ class ModelPicturesController < ApplicationController
     @model_picture = ModelPicture.find(params[:id])
   end
 
-  def register_new_picture(picture_path, model_id)
-    ModelPicture.register_picture(picture_path, model_id, false)
-  end
-
-  def upload_model_image(image_data)
-    res = Cloudinary::Uploader.upload(image_data)
-    { image_path: res["secure_url"] }
+  def register_new_picture(picture_path, model_id, cloudinary_id)
+    ModelPicture.register_picture(picture_path, model_id, false, cloudinary_id)
   end
 
   # Only allow a list of trusted parameters through.

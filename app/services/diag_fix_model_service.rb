@@ -7,4 +7,8 @@ class DiagFixModelService
     diff_picture_and_model = models_id - picture_model_uuid.uniq
     Model.where(id: diff_picture_and_model)
   end
+
+  def model_without_cloudinary_id_diag
+    ModelPicture.where(cloudinary_id: nil)
+  end
 end
