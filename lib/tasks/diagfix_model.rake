@@ -44,3 +44,28 @@ task picture_without_cloudinary_id_fix: :environment do
     picture.save
   end
 end
+
+desc "diag check if all model have a main picture"
+task model_without_main_picture_diag: :environment do
+  model_without_main_picture = DiagFixModelService.new.model_without_main_picture_diag
+
+  if model_without_main_picture.size === 0
+    message = "All model have a main picture"
+    DiscordDiagService.new("model_without_main_picture_diag", message, false).send_diag_result
+  else
+    message = "#{model_without_main_picture.size} Model not have a main picture. Fix required !"
+    DiscordDiagService.new("model_without_main_picture_diag", message, true, model_without_main_picture).send_diag_result
+  end
+end
+
+desc "fix remove model without main picture"
+task model_without_main_picture_fix: :environment do
+  model_without_main_picture = DiagFixModelService.new.model_without_main_picture_diag
+
+  model_without_main_picture.each do
+    |model|
+    ModelNetwork.find_by(model_uuid: model.id).delete
+    ModelInfo.find_by(model_uuid: model.id).delete
+    model.delete
+  end
+end

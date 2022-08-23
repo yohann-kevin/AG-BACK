@@ -11,4 +11,13 @@ class DiagFixModelService
   def model_without_cloudinary_id_diag
     ModelPicture.where(cloudinary_id: nil)
   end
+
+  def model_without_main_picture_diag
+    models = Model.select(:id).all
+    models.filter_map do
+      |model|
+      model_main_picture = ModelPicture.find_by(model_uuid: model.id, main_picture: true)
+      model if model_main_picture.nil?
+    end
+  end
 end

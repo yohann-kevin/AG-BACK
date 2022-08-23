@@ -23,6 +23,7 @@ class DiscordDiagService
         @entities.each do |entity|
           embed.description += "#{entity.attributes} \n \n"
         end
+        embed.description += "environment: #{ENV['RACK_ENV']} \n \n"
         embed.timestamp = Time.zone.now
       end
     end
