@@ -10,12 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_21_194016) do
+ActiveRecord::Schema.define(version: 2022_08_23_131740) do
 
   create_table "administrators", force: :cascade do |t|
     t.string "email"
     t.string "name"
     t.string "password"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "agents", id: { type: :string, limit: 36 }, force: :cascade do |t|
+    t.string "firstname"
+    t.string "lastname"
+    t.string "email"
+    t.string "password"
+    t.boolean "cgu"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
