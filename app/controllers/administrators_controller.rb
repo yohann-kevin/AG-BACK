@@ -1,22 +1,13 @@
 require "bcrypt"
 
 class AdministratorsController < ApplicationController
-  before_action :set_administrator, only: %i[show update destroy]
+  before_action :set_administrator, only: %i[update destroy]
   skip_before_action :authorized, only: %i[create login]
 
-  # GET /administrators
-  api :GET, "administrators", "Find all administrators"
-  def index
-    @administrators = Administrator.all
-
-    render json: @administrators
-  end
-
   # GET /administrators/1
-  api :GET, "administrators/:id", "Find administrator by id"
-  param :id, :number, desc: "id for find administrators"
-  def show
-    render json: @administrator
+  api :GET, "administrators", "Find administrator by token"
+  def index
+    render json: @admin
   end
 
   # POST /administrators

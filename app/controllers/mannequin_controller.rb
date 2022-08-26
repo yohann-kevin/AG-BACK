@@ -1,7 +1,7 @@
 require "cloudinary"
 
 class MannequinController < ApplicationController
-  skip_before_action :authorized, only: %i[home_model_data all_model_data add_model_data update_model delete_model]
+  skip_before_action :authorized, only: %i[home_model_data all_model_data]
 
   def home_model_data
     model_data = Model.select(:id, :sexe, :firstname)
@@ -29,8 +29,9 @@ class MannequinController < ApplicationController
     model_info = ModelInfo.register_model_info(request_data["model_info"], model_id)
     model_network = ModelNetwork.register_model_network(request_data["model_network"], model_id)
     main_picture_data = request_data["main_picture"][0]
-    main_picture_url = upload_model_image(main_picture_data)[:image_path]
-    register_main_picture(main_picture_url, model_id)
+    main_picture_cloudinary_data = CloudinaryService.new.upload_model_image(main_picture_data)
+    register_main_picture(main_picture_cloudinary_data[:image_path], model_id,
+                          main_picture_cloudinary_data[:cloudinary_id])
     register_model_picture(request_data["all_pictures"], model_id)
 
     if model && model_info && model_network
@@ -50,7 +51,7 @@ class MannequinController < ApplicationController
     if model && model_infos && model_networks
       render json: { message: "plop" }, status: :created
     else
-      render render json: model.errors, status: :unprocessable_entity 
+      render render json: model.errors, status: :unprocessable_entity
     end
   end
 
@@ -62,9 +63,9 @@ class MannequinController < ApplicationController
       ModelNetwork.delete_by(model_uuid: model_id)
       ModelPicture.delete_by(model_uuid: model_id)
       render json: { model_deleted: true }
-    rescue => err
+    rescue StandardError => e
       render json: { model_deleted: false }
-      raise err
+      raise e
     end
   end
 
@@ -82,21 +83,15 @@ class MannequinController < ApplicationController
     }
   end
 
-  def register_main_picture(picture_path, model_id)
-    ModelPicture.register_picture(picture_path, model_id, true)
+  def register_main_picture(picture_path, model_id, cloudinary_id)
+    ModelPicture.register_picture(picture_path, model_id, true, cloudinary_id)
   end
 
   def register_model_picture(images_data, model_id)
     images_data.each do |image|
-      picture_path = upload_model_image(image)[:image_path]
-      ModelPicture.register_picture(picture_path, model_id, false)
+      picture_data = CloudinaryService.new.upload_model_image(image)
+      ModelPicture.register_picture(picture_data[:image_path], model_id, false, picture_data[:cloudinary_id])
     end
-  end
-
-  def upload_model_image(image_data)
-    res = Cloudinary::Uploader.upload(image_data)
-    # cloudinary image id = mage_id: res["public_id"],
-    { image_path: res["secure_url"] }
   end
 
   def model_params

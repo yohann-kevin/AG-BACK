@@ -23,6 +23,8 @@ gem "rubocop-rails", require: false
 gem "rubocop-rspec", require: false
 # cloudinary for save picture
 gem "cloudinary"
+# dirscord bot
+gem "discordrb-webhooks"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
@@ -38,6 +40,8 @@ group :development, :test do
   gem "sqlite3", "~> 1.4"
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
+  # dotenv for env variable
+  gem 'dotenv-rails'
 end
 
 group :development do
