@@ -6,9 +6,12 @@ class AgentsController < ApplicationController
 
   # GET /agents
   def index
-    @agents = Agent.all
+    token = request.headers["Authorization"].split(" ")[1]
+    JWT.decode(token, nil, false)
+    agent_id = decoded_token[0]["agent_id"]
+    @agent = Agent.find_by(id: agent_id).attributes.except('password')
 
-    render json: @agents
+    render json: @agent
   end
 
   # GET /agents/1
