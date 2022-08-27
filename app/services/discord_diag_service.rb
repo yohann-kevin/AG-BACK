@@ -25,6 +25,7 @@ class DiscordDiagService
           embed.description += "#{entity.attributes} \n \n"
         end
         embed.description += "environment: #{environment} \n \n"
+        embed.description += "version: #{VERSION} \n \n"
         embed.timestamp = Time.zone.now
       end
     end
