@@ -1,3 +1,6 @@
+require "net/http"
+require "json"
+
 desc "diag check if model have a picture"
 task model_without_pictures_diag: :environment do
   model_without_picture = DiagFixModelService.new.model_without_pictures_diag
@@ -67,5 +70,18 @@ task model_without_main_picture_fix: :environment do
     ModelNetwork.find_by(model_uuid: model.id).delete
     ModelInfo.find_by(model_uuid: model.id).delete
     model.delete
+  end
+end
+
+desc "diag check picture not delete in cloudinary"
+task picture_not_delete_in_cloudinary_diag: :environment do
+  picture_not_delete = CloudinaryService.new.find_picture_not_delete
+
+  if picture_not_delete.size === 0
+    message = "All picture is okay on cloudinary"
+    DiscordDiagService.new("picture_not_delete_in_cloudinary_diag", message, false).send_diag_result
+  else
+    message = "#{picture_not_delete.size} Picture not delete in cloudinary. Fix required !"
+    DiscordDiagService.new("picture_not_delete_in_cloudinary_diag", message, true).send_diag_result
   end
 end
