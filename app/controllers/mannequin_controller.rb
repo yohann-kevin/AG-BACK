@@ -48,7 +48,12 @@ class MannequinController < ApplicationController
     model_networks = ModelNetwork.update_model_network(request_data["model_network"], model_id)
 
     if model && model_infos && model_networks
-      render json: { message: "plop" }, status: :created
+      @model_data = {
+        model: Model.find(model_id),
+        model_infos: ModelInfo.find_by(model_uuid: model_id),
+        model_network: ModelNetwork.find_by(model_uuid: model_id)
+      }
+      render json: @model_data, status: :created
     else
       render render json: model.errors, status: :unprocessable_entity 
     end
