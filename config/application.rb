@@ -23,6 +23,14 @@ module AGBack
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
+    
+    # Load dotenv only in development or test environment
+    if ['development', 'test'].include? ENV['RAILS_ENV']
+      Dotenv::Railtie.load
+    end
+
+    # add service folder to autoload path
+    config.autoload_paths << "#{config.root}/app/services"
 
     # Configuration for the application, engines, and railties goes here.
     #
