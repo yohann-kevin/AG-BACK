@@ -85,3 +85,13 @@ task picture_not_delete_in_cloudinary_diag: :environment do
     DiscordDiagService.new("picture_not_delete_in_cloudinary_diag", message, true).send_diag_result
   end
 end
+
+desc "fix remove model without main picture"
+task picture_not_delete_in_cloudinary_fix: :environment do
+  picture_not_delete = CloudinaryService.new.find_picture_not_delete
+
+  picture_not_delete.each do
+    |picture_id|
+    CloudinaryService.new.destroy_model_image(picture_id)
+  end
+end
