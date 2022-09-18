@@ -11,4 +11,13 @@ class CloudinaryService
   def destroy_model_image(public_id)
     Cloudinary::Uploader.destroy(public_id)
   end
+
+  def find_picture_not_delete
+    all_cloudinary_pictures = Cloudinary::Api.resources(max_results: 1000)
+    all_public_id = all_cloudinary_pictures["resources"].map { |picture| picture["public_id"] }
+
+    all_picture = ModelPicture.select(:id, :cloudinary_id).all.to_a
+    all_cloudinary_id = all_picture.map { |picture| picture.cloudinary_id }
+    all_public_id - all_cloudinary_id
+  end
 end

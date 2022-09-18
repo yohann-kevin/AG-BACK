@@ -14,7 +14,7 @@ class DiscordDiagService
 
   def send_diag_result
     url_webhook = ENV["DISCORD_WEBHOOKS"]
-    environment = ENV["DIAG_ENV"]
+    environment = ENV["DIAG_ENV"] || ENV["RACK_ENV"]
     client = Discordrb::Webhooks::Client.new(url: url_webhook)
     client.execute do |builder|
       builder.content = "Diag running !"
@@ -22,6 +22,8 @@ class DiscordDiagService
         embed.title = manage_message_title
         embed.description = "#{@message} \n \n"
         @entities.each do |entity|
+          # validate(x, y) or # do something else
+          # TODO: use or if not db entity
           embed.description += "#{entity.attributes} \n \n"
         end
         embed.description += "environment: #{environment} \n \n"
