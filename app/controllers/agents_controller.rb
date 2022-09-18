@@ -1,8 +1,8 @@
 require "bcrypt"
 
 class AgentsController < ApplicationController
-  before_action :set_agent, only: [:show, :update, :destroy]
-  skip_before_action :authorized, only: [:index, :show, :create, :login, :update, :destroy]
+  before_action :set_agent, only: [:show, :update, :update_password, :destroy]
+  skip_before_action :authorized, only: [:index, :show, :create, :login, :update, :update_password, :destroy]
 
   # GET /agents
   def index
@@ -55,10 +55,29 @@ class AgentsController < ApplicationController
 
   # PATCH/PUT /agents/1
   def update
-    if @agent.update(agent_params)
+    agent_data = JSON.parse(request.body.read)
+    
+    if @agent.update(agent_data)
       render json: @agent
     else
       render json: @agent.errors, status: :unprocessable_entity
+    end
+  end
+
+  def update_password
+    agent_data = JSON.parse(request.body.read)
+
+    password = BCrypt::Password.new(@agent.password)
+    if password == agent_data["last_password"]
+      new_password = BCrypt::Password.create(agent_data["new_password"])
+      @agent.password = new_password
+      if @agent.save
+        render json: @agent
+      else
+        render json: @agent.errors, status: :unprocessable_entity
+      end
+    else
+      undefined_user
     end
   end
 
