@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   resources :model_pictures
   post "/model_pictures/modify/main_picture" => "model_pictures#modify_main_picture"
 
+  resources :agents
+  post "/agent/auth" => "agents#login"
+  put "/agent/update/password/:id" =>  "agents#update_password"
+
   apipie
   resources :models
   resources :administrators

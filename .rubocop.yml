@@ -13,6 +13,9 @@ Layout/LineLength:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/CaseEquality:
+  Enabled: false
+
 # temporary
 Metrics/MethodLength:
   Max: 20

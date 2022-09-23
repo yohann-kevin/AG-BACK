@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 2022_09_01_203211) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "agents", id: { type: :string, limit: 36 }, force: :cascade do |t|
+    t.string "firstname"
+    t.string "lastname"
+    t.string "email"
+    t.string "password"
+    t.boolean "cgu"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "model_infos", force: :cascade do |t|
     t.string "model_uuid"
     t.integer "size"
@@ -55,6 +65,7 @@ ActiveRecord::Schema.define(version: 2022_09_01_203211) do
     t.boolean "main_picture"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "cloudinary_id"
   end
 
   create_table "models", id: { type: :string, limit: 36 }, force: :cascade do |t|
