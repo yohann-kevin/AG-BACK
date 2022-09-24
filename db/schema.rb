@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_01_203211) do
+ActiveRecord::Schema.define(version: 2022_09_24_165107) do
 
   create_table "administrators", force: :cascade do |t|
     t.string "email"
@@ -26,6 +26,15 @@ ActiveRecord::Schema.define(version: 2022_09_01_203211) do
     t.string "email"
     t.string "password"
     t.boolean "cgu"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string "destinator"
+    t.string "sender"
+    t.string "object"
+    t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
