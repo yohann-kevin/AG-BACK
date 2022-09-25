@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :agents
   post "/agent/auth" => "agents#login"
-  put "/agent/update/password/:id" =>  "agents#update_password"
+  put "/agent/update/password/:id" => "agents#update_password"
 
   apipie
   resources :models

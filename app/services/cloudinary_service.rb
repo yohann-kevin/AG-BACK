@@ -17,7 +17,7 @@ class CloudinaryService
     all_public_id = all_cloudinary_pictures["resources"].map { |picture| picture["public_id"] }
 
     all_picture = ModelPicture.select(:id, :cloudinary_id).all.to_a
-    all_cloudinary_id = all_picture.map { |picture| picture.cloudinary_id }
+    all_cloudinary_id = all_picture.map(&:cloudinary_id)
     all_public_id - all_cloudinary_id
   end
 end

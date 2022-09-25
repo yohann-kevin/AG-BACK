@@ -1,6 +1,6 @@
 class ContactsController < ApplicationController
-  before_action :set_contact, only: [:show, :update, :destroy]
-  skip_before_action :authorized, only: [:index, :create, :show, :update, :destroy]
+  before_action :set_contact, only: %i[show update destroy]
+  skip_before_action :authorized, only: %i[index create show update destroy]
 
   # GET /contacts
   def index
@@ -43,13 +43,14 @@ class ContactsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_contact
-      @contact = Contact.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def contact_params
-      params.require(:contact).permit(:destinator, :sender, :object, :content)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_contact
+    @contact = Contact.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def contact_params
+    params.require(:contact).permit(:destinator, :sender, :object, :content)
+  end
 end

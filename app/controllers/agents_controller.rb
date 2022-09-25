@@ -1,15 +1,15 @@
 require "bcrypt"
 
 class AgentsController < ApplicationController
-  before_action :set_agent, only: [:show, :update, :update_password, :destroy]
-  skip_before_action :authorized, only: [:index, :show, :create, :login, :update, :update_password, :destroy]
+  before_action :set_agent, only: %i[show update update_password destroy]
+  skip_before_action :authorized, only: %i[index show create login update update_password destroy]
 
   # GET /agents
   def index
     token = request.headers["Authorization"].split(" ")[1]
     JWT.decode(token, nil, false)
     agent_id = decoded_token[0]["agent_id"]
-    @agent = Agent.find_by(id: agent_id).attributes.except('password')
+    @agent = Agent.find_by(id: agent_id).attributes.except("password")
 
     render json: @agent
   end
@@ -29,7 +29,7 @@ class AgentsController < ApplicationController
     if @agent.save
       payload = { agent_id: @agent.id, is_agent: true }
       token = JWT.encode(payload, nil, "HS256")
-      agent_data = @agent.attributes.except('password')
+      agent_data = @agent.attributes.except("password")
       render json: { token: token, agent_data: agent_data }, status: :created, location: @agent
     else
       render json: @agent.errors, status: :unprocessable_entity
@@ -46,7 +46,7 @@ class AgentsController < ApplicationController
     if password == request_data["password"]
       payload = { agent_id: @agent.id, is_agent: true }
       token = JWT.encode(payload, nil, "HS256")
-      agent_data = @agent.attributes.except('password')
+      agent_data = @agent.attributes.except("password")
       render json: { token: token, agent_data: agent_data }
     else
       undefined_user
@@ -56,7 +56,7 @@ class AgentsController < ApplicationController
   # PATCH/PUT /agents/1
   def update
     agent_data = JSON.parse(request.body.read)
-    
+
     if @agent.update(agent_data)
       render json: @agent
     else
@@ -87,17 +87,18 @@ class AgentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_agent
-      @agent = Agent.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def agent_params
-      params.require(:agent).permit(:firstname, :lastname, :email, :password, :cgu)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_agent
+    @agent = Agent.find(params[:id])
+  end
 
-    def undefined_user
-      render status: :unauthorized
-    end
+  # Only allow a list of trusted parameters through.
+  def agent_params
+    params.require(:agent).permit(:firstname, :lastname, :email, :password, :cgu)
+  end
+
+  def undefined_user
+    render status: :unauthorized
+  end
 end

@@ -57,7 +57,8 @@ task model_without_main_picture_diag: :environment do
     DiscordDiagService.new("model_without_main_picture_diag", message, false).send_diag_result
   else
     message = "#{model_without_main_picture.size} Model not have a main picture. Fix required !"
-    DiscordDiagService.new("model_without_main_picture_diag", message, true, model_without_main_picture).send_diag_result
+    DiscordDiagService.new("model_without_main_picture_diag", message, true,
+                           model_without_main_picture).send_diag_result
   end
 end
 
@@ -65,8 +66,7 @@ desc "fix remove model without main picture"
 task model_without_main_picture_fix: :environment do
   model_without_main_picture = DiagFixModelService.new.model_without_main_picture_diag
 
-  model_without_main_picture.each do
-    |model|
+  model_without_main_picture.each do |model|
     ModelNetwork.find_by(model_uuid: model.id).delete
     ModelInfo.find_by(model_uuid: model.id).delete
     model.delete
@@ -90,8 +90,7 @@ desc "fix remove model without main picture"
 task picture_not_delete_in_cloudinary_fix: :environment do
   picture_not_delete = CloudinaryService.new.find_picture_not_delete
 
-  picture_not_delete.each do
-    |picture_id|
+  picture_not_delete.each do |picture_id|
     CloudinaryService.new.destroy_model_image(picture_id)
   end
 end

@@ -57,16 +57,16 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = true
   config.action_mailer.delivery_method = :smtp
-  host = 'https://ag-back-beta.herokuapp.com/'
+  host = "https://ag-back-beta.herokuapp.com/"
   config.action_mailer.default_url_options = { host: host }
   config.action_mailer.smtp_settings = {
-    :address              => 'smtp.gmail.com',
-    :port                 => 587,
-    :password             => ENV["MAIL_PASSWORD"],
-    :user_name            => 'agscouting.app@gmail.com',
-    :authentication       => "plain",
-    :domain               => 'heroku.com',
-    :enable_starttls_auto => true
+    address: "smtp.gmail.com",
+    port: 587,
+    password: ENV["MAIL_PASSWORD"],
+    user_name: "agscouting.app@gmail.com",
+    authentication: "plain",
+    domain: "heroku.com",
+    enable_starttls_auto: true
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
