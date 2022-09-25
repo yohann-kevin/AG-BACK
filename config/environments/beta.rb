@@ -55,7 +55,7 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "AG_BACK_production"
 
-  config.action_mailer.perform_caching = false
+  config.action_mailer.perform_caching = true
   config.action_mailer.delivery_method = :smtp
   host = 'https://ag-back-beta.herokuapp.com/'
   config.action_mailer.default_url_options = { host: host }
@@ -65,6 +65,7 @@ Rails.application.configure do
     :password             => ENV["MAIL_PASSWORD"],
     :user_name            => 'agscouting.app@gmail.com',
     :authentication       => "plain",
+    :domain               => 'heroku.com',
     :enable_starttls_auto => true
   }
 

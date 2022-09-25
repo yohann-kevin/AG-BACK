@@ -17,16 +17,15 @@ class ContactsController < ApplicationController
   # POST /contacts
   def create
     contact_data = JSON.parse(request.body.read)
-    puts 'call contact mailer'
-    ContactMailer.with(contact_data: contact_data).new_contact_mailer.deliver_later
-    render json: contact_data
-    # @contact = Contact.new(contact_params)
+    contact_data["destinator"] = ENV["MAIL_DESTINATOR"]
+    @contact = Contact.new(contact_data)
 
-    # if @contact.save
-    #   render json: @contact, status: :created, location: @contact
-    # else
-    #   render json: @contact.errors, status: :unprocessable_entity
-    # end
+    if @contact.save
+      ContactMailer.with(contact_data: @contact).new_contact_mailer.deliver_later
+      render json: @contact, status: :created, location: @contact
+    else
+      render json: @contact.errors, status: :unprocessable_entity
+    end
   end
 
   # PATCH/PUT /contacts/1
