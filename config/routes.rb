@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :renew_passwords
   resources :contacts
   resources :model_networks
   resources :model_infos
