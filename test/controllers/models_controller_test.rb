@@ -10,13 +10,13 @@ class ModelsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create model" do
-    assert_difference('Model.count') do
-      post models_url, params: { model: { address: @model.address, birth_date: @model.birth_date, email: @model.email, firstname: @model.firstname, lastname: @model.lastname, phone: @model.phone } }, as: :json
-    end
+  # test "should create model" do
+  #   assert_difference('Model.count') do
+  #     post models_url, params: { model: { address: @model.address, birth_date: @model.birth_date, email: @model.email, firstname: @model.firstname, lastname: @model.lastname, phone: @model.phone } }, as: :json
+  #   end
 
-    assert_response 201
-  end
+  #   assert_response 201
+  # end
 
   test "should show model" do
     get model_url(@model), as: :json

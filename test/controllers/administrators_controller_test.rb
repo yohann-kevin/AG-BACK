@@ -18,10 +18,10 @@ class AdministratorsControllerTest < ActionDispatch::IntegrationTest
   #   assert_response 201
   # end
 
-  test "should show administrator" do
-    get administrator_url(@administrator), as: :json
-    assert_response :success
-  end
+  # test "should show administrator" do
+  #   get administrator_url(@administrator), as: :json
+  #   assert_response :success
+  # end
 
   test "should update administrator" do
     patch administrator_url(@administrator),
