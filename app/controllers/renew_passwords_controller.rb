@@ -23,7 +23,11 @@ class RenewPasswordsController < ApplicationController
       agent_data['agent_id'] = @agent.id
       agent_data['secure_id'] = SecureRandom.uuid
       @renew_password = RenewPassword.new(agent_data)
-      render json: @renew_password, status: :created, location: @renew_password if @renew_password.save
+
+      if @renew_password.save
+        PasswordMailer.with(renew_password: @renew_password).new_password_mailer.deliver_later
+        render json: { message: 'mail sending' }
+      end
     else
       render json: { message: "Please log in" }, status: :unauthorized
     end
