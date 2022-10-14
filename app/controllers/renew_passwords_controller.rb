@@ -1,7 +1,7 @@
 class RenewPasswordsController < ApplicationController
-  before_action :set_renew_password, only: [:show, :update, :destroy]
+  before_action :set_renew_password, only: %i[show update destroy]
   before_action :set_renew_password_secure_id, only: [:check_secure_id]
-  skip_before_action :authorized, only: [:index, :create, :show, :update, :destroy, :check_secure_id]
+  skip_before_action :authorized, only: %i[index create show update destroy check_secure_id]
 
   # GET /renew_passwords
   def index
@@ -18,16 +18,16 @@ class RenewPasswordsController < ApplicationController
   # POST /renew_passwords
   def create
     agent_data = JSON.parse(request.body.read)
-    @agent = Agent.find_by(email: agent_data['agent_email'])
-    
+    @agent = Agent.find_by(email: agent_data["agent_email"])
+
     if @agent
-      agent_data['agent_id'] = @agent.id
-      agent_data['secure_id'] = SecureRandom.uuid
+      agent_data["agent_id"] = @agent.id
+      agent_data["secure_id"] = SecureRandom.uuid
       @renew_password = RenewPassword.new(agent_data)
 
       if @renew_password.save
         PasswordMailer.with(renew_password: @renew_password).new_password_mailer.deliver_later
-        render json: { message: 'mail sending' }
+        render json: { message: "mail sending" }
       end
     else
       render json: { message: "Please log in" }, status: :unauthorized
@@ -53,17 +53,18 @@ class RenewPasswordsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_renew_password
-      @renew_password = RenewPassword.find(params[:id])
-    end
 
-    def set_renew_password_secure_id
-      @renew_password = RenewPassword.find_by(secure_id: params[:secure_id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_renew_password
+    @renew_password = RenewPassword.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def renew_password_params
-      params.require(:renew_password).permit(:agent_id, :secure_id, :agent_email, :active)
-    end
+  def set_renew_password_secure_id
+    @renew_password = RenewPassword.find_by(secure_id: params[:secure_id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def renew_password_params
+    params.require(:renew_password).permit(:agent_id, :secure_id, :agent_email, :active)
+  end
 end
