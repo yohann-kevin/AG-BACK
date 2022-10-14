@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   resources :model_networks
   resources :model_infos
 
+  resources :renew_passwords
+  get "/renew_passwords/check/secure_id/:secure_id" => "renew_passwords#check_secure_id"
+  post "/renew_passwords/renew/password/:secure_id" => "renew_passwords#renew_password"
+
   resources :model_pictures
   post "/model_pictures/modify/main_picture" => "model_pictures#modify_main_picture"
 
