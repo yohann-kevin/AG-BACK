@@ -1,6 +1,7 @@
 class RenewPasswordsController < ApplicationController
   before_action :set_renew_password, only: [:show, :update, :destroy]
-  skip_before_action :authorized, only: [:index, :create, :show, :update, :destroy]
+  before_action :set_renew_password_secure_id, only: [:check_secure_id]
+  skip_before_action :authorized, only: [:index, :create, :show, :update, :destroy, :check_secure_id]
 
   # GET /renew_passwords
   def index
@@ -33,6 +34,10 @@ class RenewPasswordsController < ApplicationController
     end
   end
 
+  def check_secure_id
+    render json: @renew_password
+  end
+
   # PATCH/PUT /renew_passwords/1
   def update
     if @renew_password.update(renew_password_params)
@@ -51,6 +56,10 @@ class RenewPasswordsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_renew_password
       @renew_password = RenewPassword.find(params[:id])
+    end
+
+    def set_renew_password_secure_id
+      @renew_password = RenewPassword.find_by(secure_id: params[:secure_id])
     end
 
     # Only allow a list of trusted parameters through.
