@@ -1,7 +1,7 @@
 class RenewPasswordsController < ApplicationController
   before_action :set_renew_password, only: %i[show update destroy]
-  before_action :set_renew_password_secure_id, only: [:check_secure_id]
-  skip_before_action :authorized, only: %i[index create show update destroy check_secure_id]
+  before_action :set_renew_password_secure_id, only: [:check_secure_id, :renew_password]
+  skip_before_action :authorized, only: %i[index create show update destroy check_secure_id renew_password]
 
   # GET /renew_passwords
   def index
@@ -36,6 +36,19 @@ class RenewPasswordsController < ApplicationController
 
   def check_secure_id
     render json: @renew_password
+  end
+
+  def renew_password
+    new_password = JSON.parse(request.body.read)["password"]
+    agent_id = @renew_password[:agent_id]
+    @agent = Agent.find(agent_id)
+    @agent.password = BCrypt::Password.create(new_password)
+    @renew_password.active = false
+    if @agent.save && @renew_password.save
+      render json: @agent
+    else
+      render json: @renew_password.errors, status: :unprocessable_entity
+    end
   end
 
   # PATCH/PUT /renew_passwords/1
