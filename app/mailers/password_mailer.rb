@@ -3,7 +3,7 @@ class PasswordMailer < ApplicationMailer
 
   def new_password_mailer
     @renew_password = params[:renew_password]
-    @secure_url = "#{ENV['AG_FRONT']}/renew/password/#{@renew_password[:secure_id]}"
+    @secure_url = "#{ENV['AG_FRONT']}/#/renew/password/#{@renew_password[:secure_id]}"
     @url = "http://www.gmail.com"
     mail(to: @renew_password[:agent_email], subject: "password renew")
   end
