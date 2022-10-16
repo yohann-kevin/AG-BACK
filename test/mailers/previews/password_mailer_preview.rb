@@ -3,7 +3,7 @@ class PasswordMailerPreview < ActionMailer::Preview
   def new_password_mailer
     @renew_password = {
       "agent_email": "toto@gmail.com",
-      "secure_id": "19232a05-f65e-426e-b76a-03ad80e29ddc",
+      "secure_id": "7069feeb-600e-4b50-bc13-6b945d3d7cf3",
   }
 
   PasswordMailer.with(renew_password: @renew_password).new_password_mailer
