@@ -19,4 +19,8 @@ class DiagFixModelService
       model if model_main_picture.nil?
     end
   end
+
+  def model_without_level
+    Model.where(level: nil)
+  end
 end

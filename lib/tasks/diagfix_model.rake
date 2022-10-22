@@ -94,3 +94,26 @@ task picture_not_delete_in_cloudinary_fix: :environment do
     CloudinaryService.new.destroy_model_image(picture_id)
   end
 end
+
+desc "diag check if all model have a level"
+task model_not_have_level_diag: :environment do
+  model_not_have_level = DiagFixModelService.new.model_without_level
+  
+  if model_not_have_level.size === 0
+    message = "All model have a level"
+    DiscordDiagService.new("model_not_have_level_diag", message, false).send_diag_result
+  else
+    message = "#{model_not_have_level.size} model not have a level. Fix required !"
+    DiscordDiagService.new("model_not_have_level_diag", message, true).send_diag_result
+  end
+end
+
+desc "fix check if all model have a level"
+task model_not_have_level_fix: :environment do
+  model_not_have_level = DiagFixModelService.new.model_without_level
+  
+  model_not_have_level.each do |model|
+    model.level ='T7'
+    model.save
+  end
+end
