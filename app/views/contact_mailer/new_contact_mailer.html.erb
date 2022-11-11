@@ -1,0 +1,17 @@
+<div style="background-color:#fff;width:95%;display:flex;justify-content:center;flex-wrap:wrap;border-radius:10px;box-shadow: 0 3px 1px -2pxrgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);">
+  <div style="width:100%;display:flex;justify-content:center;flex-wrap:wrap;">
+    <h2 style="width:100%;text-align:center;">Demande de contact</h2>
+    <h3 style="width:100%;text-align:center;">Objet de la demande de contact : <%= @contact_data[:object] %> </h3>
+  </div>
+  <div style="width:80%;">
+    <h4>Email : <%= @contact_data[:sender] %> </h4>
+    <h4>Téléphone : <%= @contact_data[:phone] %> </h4>
+    <h4>Domaine d'activité : <%= @contact_data[:activity] %> </h4>
+    <h4>Entreprise : <%= @contact_data[:company] %> </h4>
+    <h4>Besoin : <%= @contact_data[:need].split('/').join(', ') %> </h4>
+    <h4>Message :</h4>
+    <p style="text-align:justify;"> <%= @contact_data[:content] %> </p><br>
+    <br>
+    <p>Envoyé à : <%= DateTime.now.utc.in_time_zone("Paris").strftime("%Hh%M le %d/%m/%Y")%></p>
+  </div>
+</div>

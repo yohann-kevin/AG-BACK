@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_01_203211) do
+ActiveRecord::Schema.define(version: 2022_11_10_210504) do
 
   create_table "administrators", force: :cascade do |t|
     t.string "email"
@@ -28,6 +28,19 @@ ActiveRecord::Schema.define(version: 2022_09_01_203211) do
     t.boolean "cgu"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string "destinator"
+    t.string "sender"
+    t.string "object"
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "phone"
+    t.string "company"
+    t.string "activity"
+    t.string "need"
   end
 
   create_table "model_infos", force: :cascade do |t|
@@ -68,6 +81,14 @@ ActiveRecord::Schema.define(version: 2022_09_01_203211) do
     t.string "cloudinary_id"
   end
 
+  create_table "model_videos", force: :cascade do |t|
+    t.string "model_uuid"
+    t.string "video_path"
+    t.string "cloudinary_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "models", id: { type: :string, limit: 36 }, force: :cascade do |t|
     t.string "firstname"
     t.string "lastname"
@@ -78,6 +99,16 @@ ActiveRecord::Schema.define(version: 2022_09_01_203211) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "sexe"
+    t.string "level", default: "T7"
+  end
+
+  create_table "renew_passwords", force: :cascade do |t|
+    t.string "agent_id"
+    t.string "secure_id"
+    t.string "agent_email"
+    t.boolean "active", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
 end

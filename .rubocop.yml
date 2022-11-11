@@ -29,6 +29,9 @@ Rails/FilePath:
 Metrics/ClassLength:
   Max: 100
 
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false
+
 inherit_mode:
   merge:
     - Exclude
@@ -40,3 +43,4 @@ AllCops:
     - db/schema.rb
     - db/migrate/*
     - bin/*
+    - config/environments/*
