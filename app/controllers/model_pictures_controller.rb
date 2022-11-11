@@ -38,8 +38,8 @@ class ModelPicturesController < ApplicationController
 
   # DELETE /model_pictures/1
   def destroy
+    CloudinaryService.new.destroy_model_image(@model_picture.cloudinary_id)
     @model_picture.destroy
-    CloudinaryService.new.destroy_model_image(@model_pictures.public_id)
     model_pictures = ModelPicture.where(model_uuid: @model_picture.model_uuid)
     render json: model_pictures
   end
