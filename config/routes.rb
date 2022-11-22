@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :models
   resources :administrators
   post "/admin/auth" => "administrators#login"
+  get "/admin/backup" => "administrators#backup"
 
   # endpoint for model
   get "/get/all/model" => "mannequin#home_model_data"
