@@ -28,4 +28,6 @@ Rails.application.routes.draw do
   delete "/delete/model" => "mannequin#delete_model"
 
   get "/" => "index#index"
+
+  get "/status" => "status#status"
 end
