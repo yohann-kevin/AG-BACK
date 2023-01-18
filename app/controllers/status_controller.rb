@@ -2,11 +2,9 @@ class StatusController < ApplicationController
   skip_before_action :authorized, only: %i[status]
 
   def status
-    begin
-      puts "ActiveRecord version: #{ActiveRecord::Migrator.current_version}"
-      render json: { message: 'connection ok !' }
-    rescue => exception
-      render :status => 500
-    end
+    Rails.logger.debug "ActiveRecord version: #{ActiveRecord::Migrator.current_version}"
+    render json: { message: "connection ok !" }
+  rescue StandardError => e
+    render status: :internal_server_error
   end
 end
