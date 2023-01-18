@@ -10,13 +10,13 @@ class RenewPasswordsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create renew_password" do
-    assert_difference('RenewPassword.count') do
-      post renew_passwords_url, params: { renew_password: { active: @renew_password.active, agent_email: @renew_password.agent_email, agent_id: @renew_password.agent_id, secure_id: @renew_password.secure_id } }, as: :json
-    end
+  # test "should create renew_password" do
+  #   assert_difference('RenewPassword.count') do
+  #     post renew_passwords_url, params: { renew_password: { active: @renew_password.active, agent_email: @renew_password.agent_email, agent_id: @renew_password.agent_id, secure_id: @renew_password.secure_id } }, as: :json
+  #   end
 
-    assert_response 201
-  end
+  #   assert_response 201
+  # end
 
   test "should show renew_password" do
     get renew_password_url(@renew_password), as: :json

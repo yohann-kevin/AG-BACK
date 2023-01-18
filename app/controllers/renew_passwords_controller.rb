@@ -1,6 +1,6 @@
 class RenewPasswordsController < ApplicationController
   before_action :set_renew_password, only: %i[show update destroy]
-  before_action :set_renew_password_secure_id, only: [:check_secure_id, :renew_password]
+  before_action :set_renew_password_secure_id, only: %i[check_secure_id renew_password]
   skip_before_action :authorized, only: %i[index create show update destroy check_secure_id renew_password]
 
   # GET /renew_passwords
