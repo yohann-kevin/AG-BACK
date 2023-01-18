@@ -5,6 +5,6 @@ class StatusController < ApplicationController
     Rails.logger.debug "ActiveRecord version: #{ActiveRecord::Migrator.current_version}"
     render json: { message: "connection ok !" }
   rescue StandardError => e
-    render status: :internal_server_error
+    render json: e, status: :internal_server_error
   end
 end
