@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount HygieBackRunner::Engine => "/hygie_back_runner"
+
   resources :contacts
   resources :model_networks
   resources :model_infos
@@ -18,7 +20,6 @@ Rails.application.routes.draw do
   resources :models
   resources :administrators
   post "/admin/auth" => "administrators#login"
-  get "/admin/backup" => "administrators#backup"
 
   # endpoint for model
   get "/get/all/model" => "mannequin#home_model_data"
@@ -28,6 +29,4 @@ Rails.application.routes.draw do
   delete "/delete/model" => "mannequin#delete_model"
 
   get "/" => "index#index"
-
-  get "/status" => "status#status"
 end
