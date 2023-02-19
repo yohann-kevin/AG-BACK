@@ -36,7 +36,9 @@ gem "rack-cors"
 gem "apipie-rails"
 
 # hygie back runner
-gem "hygie_back_runner", "~> 0.8.0"
+source "https://rubygems.pkg.github.com/yohann-kevin" do
+  gem "hygie_back_runner", "1.2.0"
+end
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
