@@ -63,22 +63,6 @@ class AdministratorsController < ApplicationController
     @administrator.destroy
   end
 
-  def backup
-    all_data = {
-      administrators: Administrator.all,
-      agents: Agent.all,
-      contacts: Contact.all,
-      model_data: {
-        models: Model.all,
-        model_infos: ModelInfo.all,
-        model_networks: ModelNetwork.all,
-        model_pictures: ModelPicture.all
-      },
-      renew_password: RenewPassword.all
-    }
-    render json: all_data
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.

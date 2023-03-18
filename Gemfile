@@ -35,6 +35,11 @@ gem "rack-cors"
 # Generate api documentation
 gem "apipie-rails"
 
+# hygie back runner
+source "https://rubygems.pkg.github.com/yohann-kevin" do
+  gem "hygie_back_runner", "1.2.0"
+end
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem "sqlite3", "~> 1.4"
