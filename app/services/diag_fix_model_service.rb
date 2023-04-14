@@ -23,4 +23,13 @@ class DiagFixModelService
   def model_without_level
     Model.where(level: nil)
   end
+
+  def model_info_without_model
+    all_models_info = ModelInfo.all.select(:model_uuid)
+    models_info_model_uuid = all_models_info.map(&:model_uuid)
+    all_models = Model.all.select(:id)
+    models_id = all_models.map(&:id)
+    diff_info_and_model = models_info_model_uuid - models_id
+    ModelInfo.where(model_uuid: diff_info_and_model).pluck(:model_uuid)
+  end
 end

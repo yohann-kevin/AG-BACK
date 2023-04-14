@@ -10,6 +10,7 @@ launch_comand () {
   rake model_without_main_picture_diag DIAG_ENV="$env"
   rake picture_not_delete_in_cloudinary_diag DIAG_ENV="$env"
   rake model_not_have_level_diag DIAG_ENV="$env"
+  rake model_info_not_have_model_diag DIAG_ENV="$env"
 }
 
 if [ "$noday" = "--no-day" ]; then
