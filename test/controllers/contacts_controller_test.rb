@@ -10,13 +10,23 @@ class ContactsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test "should create contact" do
-  #   assert_difference('Contact.count') do
-  #     post contacts_url, params: { contact: { content: @contact.content, destinator: @contact.destinator, object: @contact.object, sender: @contact.sender } }, as: :json
-  #   end
+  test "should create contact" do
+    ENV["MAIL_DESTINATOR"] = "test@example.com"
 
-  #   assert_response 201
-  # end
+    contact_data = {
+      content: "test content",
+      destinator: nil,
+      object: "test object",
+      sender: "test@example.com"
+    }
+
+    assert_nothing_raised do
+      post contacts_url, params: contact_data, as: :json
+    end
+
+    assert_response :created
+    assert_equal "test@example.com", Contact.last.destinator
+  end
 
   test "should show contact" do
     get contact_url(@contact), as: :json
