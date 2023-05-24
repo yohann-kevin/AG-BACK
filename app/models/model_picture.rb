@@ -12,3 +12,5 @@ class ModelPicture < ApplicationRecord
     picture.save
   end
 end
+
+
