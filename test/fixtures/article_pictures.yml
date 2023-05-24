@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  article_id: MyString
+  picture_path: MyString
+  main_picture: false
+  cloudinary_id: MyString
+
+two:
+  article_id: MyString
+  picture_path: MyString
+  main_picture: false
+  cloudinary_id: MyString
