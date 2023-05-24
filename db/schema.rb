@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_24_144943) do
+ActiveRecord::Schema.define(version: 2022_11_10_210504) do
 
   create_table "administrators", force: :cascade do |t|
     t.string "email"
@@ -26,23 +26,6 @@ ActiveRecord::Schema.define(version: 2023_05_24_144943) do
     t.string "email"
     t.string "password"
     t.boolean "cgu"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "article_pictures", force: :cascade do |t|
-    t.string "article_id"
-    t.string "picture_path"
-    t.boolean "main_picture"
-    t.string "cloudinary_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "articles", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.datetime "event_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -74,6 +57,7 @@ ActiveRecord::Schema.define(version: 2023_05_24_144943) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "sexe"
     t.string "eyes"
   end
 
@@ -95,6 +79,14 @@ ActiveRecord::Schema.define(version: 2023_05_24_144943) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "cloudinary_id"
+  end
+
+  create_table "model_videos", force: :cascade do |t|
+    t.string "model_uuid"
+    t.string "video_path"
+    t.string "cloudinary_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "models", id: { type: :string, limit: 36 }, force: :cascade do |t|

@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
-  resources :article_pictures
   mount HygieBackRunner::Engine => "/hygie_back_runner"
 
   resources :contacts
-  resources :articles
   resources :model_networks
   resources :model_infos
 
