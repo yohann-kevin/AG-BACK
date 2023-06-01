@@ -3,7 +3,7 @@ require "cloudinary"
 class ArticlePicturesController < ApplicationController
   before_action :set_article_picture, only: %i[show update destroy modify_main_picture]
 
-# GET /article_pictures
+  # GET /article_pictures
   def index
     @article_pictures = ArticlePicture.all
 
@@ -23,10 +23,9 @@ class ArticlePicturesController < ApplicationController
     picture_data = CloudinaryService.new.upload_article_image(picture_data)
     register_new_picture(picture_data[:image_path], article_id, picture_data[:cloudinary_id])
     all_article_pictures = ArticlePicture.where(article_id: article_id)
-  
+
     render json: all_article_pictures, status: :created
   end
-  
 
   # PATCH/PUT /article_pictures/1
   def update
@@ -51,20 +50,20 @@ class ArticlePicturesController < ApplicationController
     article_pictures = ArticlePicture.where(article_id: article_id)
     render json: article_pictures
   end
-  
-  
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_article_picture
-      @article_picture = ArticlePicture.find(params[:id])
-    end
-    def register_new_picture(picture_path, article_id, cloudinary_id)
-      ArticlePicture.register_picture(picture_path, article_id, false, cloudinary_id)
-    end
 
-    # Only allow a list of trusted parameters through.
-    def article_picture_params
-      params.require(:article_picture).permit(:article_id, :picture_path, :main_picture)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_article_picture
+    @article_picture = ArticlePicture.find(params[:id])
+  end
+
+  def register_new_picture(picture_path, article_id, cloudinary_id)
+    ArticlePicture.register_picture(picture_path, article_id, false, cloudinary_id)
+  end
+
+  # Only allow a list of trusted parameters through.
+  def article_picture_params
+    params.require(:article_picture).permit(:article_id, :picture_path, :main_picture)
+  end
 end

@@ -30,4 +30,3 @@ class CloudinaryService
     Cloudinary::Uploader.destroy(public_id)
   end
 end
-
