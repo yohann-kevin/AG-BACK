@@ -4,8 +4,7 @@ class CreateArticlePictures < ActiveRecord::Migration[6.1]
       t.string :article_id
       t.string :picture_path
       t.boolean :main_picture
-      t.string :cloudinary_id
-
+      
       t.timestamps
     end
   end

@@ -1,9 +1,9 @@
 require "cloudinary"
 
 class ArticlePicturesController < ApplicationController
-  before_action :set_article_picture, only: [:show, :update, :destroy]
+  before_action :set_article_picture, only: %i[show update destroy modify_main_picture]
 
-  # GET /article_pictures
+# GET /article_pictures
   def index
     @article_pictures = ArticlePicture.all
 
@@ -58,6 +58,9 @@ class ArticlePicturesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_article_picture
       @article_picture = ArticlePicture.find(params[:id])
+    end
+    def register_new_picture(picture_path, article_id, cloudinary_id)
+      ArticlePicture.register_picture(picture_path, article_id, false, cloudinary_id)
     end
 
     # Only allow a list of trusted parameters through.
