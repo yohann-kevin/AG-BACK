@@ -25,6 +25,7 @@ class CloudinaryService
     res = Cloudinary::Uploader.upload(image_data)
     { image_path: res["secure_url"], cloudinary_id: res["public_id"] }
   end
+
   def destroy_article_image(public_id)
     Cloudinary::Uploader.destroy(public_id)
   end

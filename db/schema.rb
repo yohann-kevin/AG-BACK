@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_24_144943) do
+ActiveRecord::Schema.define(version: 2023_06_01_171524) do
 
   create_table "administrators", force: :cascade do |t|
     t.string "email"
@@ -34,9 +34,9 @@ ActiveRecord::Schema.define(version: 2023_05_24_144943) do
     t.string "article_id"
     t.string "picture_path"
     t.boolean "main_picture"
-    t.string "cloudinary_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "cloudinary_id"
   end
 
   create_table "articles", force: :cascade do |t|
