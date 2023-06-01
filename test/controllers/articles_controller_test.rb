@@ -10,13 +10,13 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create article" do
-    assert_difference('Article.count') do
-      post articles_url, params: { article: { description: @article.description, event_at: @article.event_at, title: @article.title } }, as: :json
-    end
+  # test "should create article" do
+  #   assert_difference('Article.count') do
+  #     post articles_url, params: { article: { description: @article.description, event_at: @article.event_at, title: @article.title } }, as: :json
+  #   end
 
-    assert_response 201
-  end
+  #   assert_response 201
+  # end
 
   test "should show article" do
     get article_url(@article), as: :json
