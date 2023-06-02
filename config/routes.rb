@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
- 
   mount HygieBackRunner::Engine => "/hygie_back_runner"
 
   resources :contacts
@@ -8,7 +7,7 @@ Rails.application.routes.draw do
   resources :model_infos
   resources :article_pictures
   post "article_pictures/modify_picture" => "article_pictures#modify_main_picture"
-  
+
   resources :renew_passwords
   get "/renew_passwords/check/secure_id/:secure_id" => "renew_passwords#check_secure_id"
   post "/renew_passwords/renew/password/:secure_id" => "renew_passwords#renew_password"
