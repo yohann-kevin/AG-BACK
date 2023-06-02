@@ -9,4 +9,8 @@ class Article < ApplicationRecord
     article = Article.find(article_id)
     article.update(data_info) ? true : false
   end
+
+  # Defines a one-to-many association with the ArticlePicture model
+  # Specifies dependent: :destroy, meaning associated article pictures will be destroyed when an article is destroyed
+  has_many :article_pictures, dependent: :destroy
 end

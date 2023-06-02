@@ -11,4 +11,6 @@ class ArticlePicture < ApplicationRecord
     picture.main_picture = true
     picture.save
   end
+  # Defines a belongs_to association with the Article model
+  belongs_to :article
 end
