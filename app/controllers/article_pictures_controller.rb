@@ -2,6 +2,7 @@ require "cloudinary"
 
 class ArticlePicturesController < ApplicationController
   before_action :set_article_picture, only: %i[show update destroy modify_main_picture]
+  skip_before_action :authorized, only: %i[modify_main_picture]
 
   # GET /article_pictures
   def index
