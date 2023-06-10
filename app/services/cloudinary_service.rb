@@ -1,6 +1,6 @@
 class CloudinaryService
   def initialize
-    Cloudinary.config_from_url ENV["CLOUDINARY_URL"]
+    Cloudinary.config_from_url(ENV["CLOUDINARY_URL"])
   end
 
   def upload_model_image(image_data)
@@ -19,5 +19,14 @@ class CloudinaryService
     all_picture = ModelPicture.select(:id, :cloudinary_id).all.to_a
     all_cloudinary_id = all_picture.map(&:cloudinary_id)
     all_public_id - all_cloudinary_id
+  end
+
+  def upload_article_image(image_data)
+    res = Cloudinary::Uploader.upload(image_data)
+    { image_path: res["secure_url"], cloudinary_id: res["public_id"] }
+  end
+
+  def destroy_article_image(public_id)
+    Cloudinary::Uploader.destroy(public_id)
   end
 end
