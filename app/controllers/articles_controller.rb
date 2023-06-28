@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
   # GET /articles
   def index
     # Retrieve all article IDs
-    articles_id = Article.select(:id).all
+    articles_id = Article.order(created_at: :desc).select(:id).all
     @articles = []
     articles_id.each do |id|
       # Find all article data for each ID
