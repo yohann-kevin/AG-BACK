@@ -241,13 +241,6 @@ GEM
     websocket-extensions (0.1.5)
     zeitwerk (2.6.6)
 
-GEM
-  remote: https://rubygems.pkg.github.com/yohann-kevin/
-  specs:
-    hygie_back_runner (1.2.0)
-      rack
-      rails (~> 6.0, >= 6.0)
-
 PLATFORMS
   arm64-darwin-21
   x64-mingw32
