@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  mount HygieBackRunner::Engine => "/hygie_back_runner"
+  # mount HygieBackRunner::Engine => "/hygie_back_runner"
 
   resources :contacts
   resources :articles
